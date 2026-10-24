@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+
+{% block page_title %}Discussions & Chat{% endblock %}
+
+{% block content %}
+<div style="display: grid; grid-template-columns: 300px 1fr; gap: 20px; height: 100%;">
+    
+    <!-- Sidebar for Chat Controls -->
+    <div style="display: flex; flex-direction: column; gap: 20px;">
+        
+        <!-- Public Room Selector -->
+        <div class="card" style="margin-bottom: 0; cursor: pointer; border-color: var(--primary-red);" id="btn-public-room" onclick="openPublicRoom()">
+            <h3 style="margin: 0; text-align: center; color: var(--text-light);">Public Discussion</h3>
+        </div>
+
+        <!-- Initiate Private Chat -->
+        <div class="card" style="margin-bottom: 0;">
+            <h3 class="card-title" style="font-size: 1rem;">Start Private Chat</h3>
+            <div class="form-group" style="margin-bottom: 10px;">
+                <input type="text" id="target-unique-id" class="form-control" placeholder="Enter Unique ID (e.g. BD-001)">
+            </div>
+            <button class="btn" style="width: 100%; font-size: 0.9rem;" onclick="sendChatRequest()">Send Request</button>
+        </div>
+
+        <!-- Incoming Requests -->
+        <div class="card" style="margin-bottom: 0; flex: 1;">
+            <h3 class="card-title" style="font-size: 1rem;">Incoming Requests</h3>
+            <div id="incoming-requests-list">
+                <!-- Dynamically populated -->
+                <p style="color: var(--text-muted); font-size: 0.8rem; text-align: center;">No pending requests</p>
+            </div>
+        </div>
+
+        <!-- Active Private Chats -->
+        <div class="card" style="margin-bottom: 0; flex: 1;">
+            <h3 class="card-title" style="font-size: 1rem;">Private Contacts</h3>
+            <div id="private-contacts-list">
+                <!-- Dynamically populated -->
+                <p style="color: var(--text-muted); font-size: 0.8rem; text-align: center;">No private contacts</p>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Chat Window -->
+    <div class="chat-container">
+        <div class="chat-header" id="chat-header-title">
+            Public Discussion Room
+        </div>
+        <div class="chat-messages" id="chat-messages">
+            <!-- Messages go here -->
+        </div>
+        <div class="chat-input">
+            <input type="text" id="chat-input-field" placeholder="Type your message..." onkeypress="handleKeyPress(event)">
+            <button class="btn" onclick="sendMessage()">Send</button>
+        </div>
+    </div>
+
+</div>
+
+<!-- Store current user info for JS access -->
+<script>
+    const currentUserId = {{ current_user.id }};
+    const currentUsername = "{{ current_user.username }}";
+</script>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/chat.js') }}"></script>
+{% endblock %}

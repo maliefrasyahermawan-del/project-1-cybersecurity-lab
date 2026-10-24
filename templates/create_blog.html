@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block page_title %}Upload Course Material{% endblock %}
+
+{% block content %}
+<div class="card" style="max-width: 800px; margin: 0 auto; padding: 40px; box-shadow: 0 10px 40px rgba(0,0,0,0.2); border-top: 4px solid var(--primary-red);">
+    <div style="text-align: center; margin-bottom: 30px;">
+        <h2 style="color: var(--text-light); margin-top: 0; font-size: 2rem;">Create New Course</h2>
+        <p style="color: var(--text-muted);">Share your knowledge with the community</p>
+    </div>
+
+    <form method="POST">
+        
+        <div class="form-group">
+            <label for="title" style="color: var(--text-light); font-size: 1rem;">Course Title</label>
+            <input type="text" id="title" name="title" class="form-control" placeholder="Enter an engaging title..." required style="padding: 15px; font-size: 1.1rem; border-radius: 10px;">
+        </div>
+
+        <div class="form-group" style="margin-bottom: 30px;">
+            <label for="category" style="color: var(--text-light); font-size: 1rem;">Target Audience / Team</label>
+            <select id="category" name="category" class="form-control" style="padding: 15px; font-size: 1rem; border-radius: 10px; cursor: pointer; appearance: none; background-image: url('data:image/svg+xml;utf8,<svg fill=%22white%22 height=%2224%22 viewBox=%220 0 24 24%22 width=%2224%22 xmlns=%22http://www.w3.org/2000/svg%22><path d=%22M7 10l5 5 5-5z%22/><path d=%22M0 0h24v24H0z%22 fill=%22none%22/></svg>'); background-repeat: no-repeat; background-position: right 15px top 50%;">
+                <option value="Red Team">⚔️ Red Team (Offensive Security)</option>
+                <option value="Blue Team">🛡️ Blue Team (Defensive Security)</option>
+                <option value="Purple Team">🔮 Purple Team (Combined Ops)</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="content" style="color: var(--text-light); font-size: 1rem;">Course Material</label>
+            <textarea id="content" name="content" class="form-control" rows="12" placeholder="Write your course content here. Explain the vulnerability, defense mechanism, or tools used..." required style="padding: 15px; border-radius: 10px; resize: vertical; line-height: 1.6;"></textarea>
+        </div>
+
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 40px; padding-top: 20px; border-top: 1px solid var(--border-color);">
+            <a href="{{ url_for('blog') }}" class="btn" style="background-color: transparent; border: 2px solid var(--border-color-strong); color: var(--text-muted); padding: 12px 25px;">&larr; Cancel</a>
+            <button type="submit" class="btn" style="padding: 12px 35px; font-size: 1.1rem; box-shadow: 0 4px 15px rgba(230, 57, 70, 0.4);">Publish Course 🚀</button>
+        </div>
+    </form>
+</div>
+
+<style>
+    /* Styling for the select element options in dark mode */
+    select option {
+        background-color: var(--bg-main);
+        color: var(--text-light);
+        padding: 10px;
+    }
+</style>
+{% endblock %}

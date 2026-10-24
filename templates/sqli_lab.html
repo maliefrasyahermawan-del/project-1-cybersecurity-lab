@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block page_title %}SQL Injection Lab{% endblock %}
+
+{% block content %}
+<div style="display: flex; justify-content: center; align-items: center; min-height: 60vh;">
+    <div class="card" style="width: 100%; max-width: 500px;">
+        <h3 class="card-title">Admin Login Panel</h3>
+        <p style="color: var(--text-muted); margin-bottom: 20px;">
+            Target: Bypass the authentication mechanism without knowing a valid password.
+        </p>
+
+        {% if message %}
+            <div class="alert alert-error">
+                {{ message }}
+            </div>
+        {% endif %}
+
+        <form method="POST">
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" class="form-control" autocomplete="off">
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" class="form-control" autocomplete="off">
+            </div>
+            <button type="submit" class="btn" style="width: 100%;">Login</button>
+        </form>
+    </div>
+</div>
+
+<!-- Floating Assistant Ball -->
+<div id="assistant-ball">?</div>
+<div id="assistant-panel">
+    <h3>Lab Assistant</h3>
+    <p>In this lab, the backend query looks like this:</p>
+    <div class="payload-code" style="font-size: 0.8rem; margin-bottom: 10px; color: #b0bec5;">
+        SELECT * FROM users WHERE username = '<span style="color: #4caf50;">$username</span>' AND password = '<span style="color: #4caf50;">$password</span>'
+    </div>
+    <p>You can bypass the password check by injecting a tautology into the username field and commenting out the rest of the query.</p>
+    <p><strong>Try this payload in the Username field:</strong></p>
+    <div class="payload-code">
+        ' OR 1=1--
+    </div>
+    <p style="margin-top: 10px; font-size: 0.9rem;">Leave the password field blank or enter anything.</p>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/assistant.js') }}"></script>
+{% endblock %}

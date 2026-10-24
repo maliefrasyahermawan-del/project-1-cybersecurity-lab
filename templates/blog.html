@@ -1,0 +1,231 @@
+{% extends 'base.html' %}
+
+{% block page_title %}Learning Materials & Courses{% endblock %}
+
+{% block content %}
+<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
+    <div>
+        <h2 style="margin: 0; color: var(--text-light); font-size: 2rem;">Security Courses</h2>
+        <p style="color: var(--text-muted); margin-top: 5px;">Explore materials grouped by operations team</p>
+    </div>
+    <a href="{{ url_for('create_blog') }}" class="btn" style="padding: 12px 25px; box-shadow: 0 4px 15px rgba(230, 57, 70, 0.3);">+ Upload Course</a>
+</div>
+
+<!-- Tabs Navigation -->
+<div class="tabs-container">
+    <div class="tab-btn active" onclick="openTab('red-team', this)" style="border-bottom-color: #E63946;">
+        <span style="font-size: 1.2rem; margin-right: 8px;">⚔️</span> Red Team
+    </div>
+    <div class="tab-btn" onclick="openTab('blue-team', this)">
+        <span style="font-size: 1.2rem; margin-right: 8px;">🛡️</span> Blue Team
+    </div>
+    <div class="tab-btn" onclick="openTab('purple-team', this)">
+        <span style="font-size: 1.2rem; margin-right: 8px;">🔮</span> Purple Team
+    </div>
+</div>
+
+<!-- Tab Content: Red Team -->
+<div id="red-team" class="tab-content active" style="animation: fadeIn 0.4s;">
+    <div class="course-grid">
+        {% set has_red = false %}
+        {% for post in posts if post.category == 'Red Team' %}
+            {% set has_red = true %}
+            {{ loop(post) }}
+        {% endfor %}
+        {% if not has_red %}
+            <div style="grid-column: 1 / -1; text-align: center; padding: 40px; background: var(--panel-bg); border-radius: 12px; border: 1px dashed var(--border-color-strong);">
+                <span style="font-size: 3rem; opacity: 0.5; display: block; margin-bottom: 15px;">⚔️</span>
+                <p style="color: var(--text-muted); font-size: 1.1rem;">No Red Team courses available yet. Be the first to upload one!</p>
+            </div>
+        {% endif %}
+    </div>
+</div>
+
+<!-- Tab Content: Blue Team -->
+<div id="blue-team" class="tab-content" style="display: none; animation: fadeIn 0.4s;">
+    <div class="course-grid">
+        {% set has_blue = false %}
+        {% for post in posts if post.category == 'Blue Team' %}
+            {% set has_blue = true %}
+            {{ loop(post) }}
+        {% endfor %}
+        {% if not has_blue %}
+            <div style="grid-column: 1 / -1; text-align: center; padding: 40px; background: var(--panel-bg); border-radius: 12px; border: 1px dashed var(--border-color-strong);">
+                <span style="font-size: 3rem; opacity: 0.5; display: block; margin-bottom: 15px;">🛡️</span>
+                <p style="color: var(--text-muted); font-size: 1.1rem;">No Blue Team courses available yet. Be the first to upload one!</p>
+            </div>
+        {% endif %}
+    </div>
+</div>
+
+<!-- Tab Content: Purple Team -->
+<div id="purple-team" class="tab-content" style="display: none; animation: fadeIn 0.4s;">
+    <div class="course-grid">
+        {% set has_purple = false %}
+        {% for post in posts if post.category == 'Purple Team' %}
+            {% set has_purple = true %}
+            {{ loop(post) }}
+        {% endfor %}
+        {% if not has_purple %}
+            <div style="grid-column: 1 / -1; text-align: center; padding: 40px; background: var(--panel-bg); border-radius: 12px; border: 1px dashed var(--border-color-strong);">
+                <span style="font-size: 3rem; opacity: 0.5; display: block; margin-bottom: 15px;">🔮</span>
+                <p style="color: var(--text-muted); font-size: 1.1rem;">No Purple Team courses available yet. Be the first to upload one!</p>
+            </div>
+        {% endif %}
+    </div>
+</div>
+
+<!-- Reusable Course Card Macro (Jinja) -->
+{% macro loop(post) %}
+<div class="course-card">
+    <div class="course-header">
+        <h3 class="course-title">{{ post.title }}</h3>
+        <span class="course-badge {{ post.category | lower | replace(' ', '-') }}">{{ post.category }}</span>
+    </div>
+    <div class="course-meta">
+        <span>👤 {{ post.username }}</span>
+        <span>📅 {{ post.created_at[:10] }}</span>
+    </div>
+    <div class="course-body">
+        {{ post.content | truncate(150, true, '...') }}
+    </div>
+    <div class="course-footer">
+        <button class="btn" style="width: 100%; border-radius: 6px; padding: 10px;" onclick="alert('Feature to read full course coming soon!')">Read Full Course</button>
+    </div>
+</div>
+{% endmacro %}
+
+<style>
+    /* Tabs Styling */
+    .tabs-container {
+        display: flex;
+        border-bottom: 2px solid var(--border-color-strong);
+        margin-bottom: 30px;
+    }
+
+    .tab-btn {
+        padding: 15px 30px;
+        color: var(--text-muted);
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s;
+        border-bottom: 3px solid transparent;
+        display: flex;
+        align-items: center;
+    }
+
+    .tab-btn:hover {
+        background-color: rgba(255, 255, 255, 0.05);
+        color: var(--text-light);
+    }
+
+    .tab-btn.active {
+        color: var(--text-light);
+        background-color: rgba(255, 255, 255, 0.03);
+    }
+
+    /* Course Grid */
+    .course-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+        gap: 25px;
+    }
+
+    /* Modern Course Card */
+    .course-card {
+        background: var(--panel-bg);
+        backdrop-filter: var(--glass-blur);
+        border: 1px solid var(--border-color);
+        border-radius: 12px;
+        display: flex;
+        flex-direction: column;
+        transition: transform 0.3s, box-shadow 0.3s;
+        overflow: hidden;
+    }
+
+    .course-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        border-color: var(--border-color-strong);
+    }
+
+    .course-header {
+        padding: 20px 20px 10px 20px;
+        border-bottom: 1px solid var(--border-color);
+    }
+
+    .course-title {
+        margin: 0 0 10px 0;
+        color: var(--text-light);
+        font-size: 1.3rem;
+        line-height: 1.4;
+    }
+
+    .course-badge {
+        display: inline-block;
+        padding: 4px 10px;
+        border-radius: 20px;
+        font-size: 0.75rem;
+        font-weight: bold;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .course-badge.red-team { background: rgba(230, 57, 70, 0.2); color: #E63946; border: 1px solid rgba(230, 57, 70, 0.4); }
+    .course-badge.blue-team { background: rgba(69, 123, 157, 0.2); color: #457B9D; border: 1px solid rgba(69, 123, 157, 0.4); }
+    .course-badge.purple-team { background: rgba(156, 39, 176, 0.2); color: #9C27B0; border: 1px solid rgba(156, 39, 176, 0.4); }
+
+    .course-meta {
+        display: flex;
+        justify-content: space-between;
+        padding: 12px 20px;
+        font-size: 0.85rem;
+        color: var(--text-muted);
+        background: rgba(0, 0, 0, 0.1);
+    }
+
+    .course-body {
+        padding: 20px;
+        color: #ddd;
+        line-height: 1.6;
+        flex-grow: 1;
+        font-size: 0.95rem;
+    }
+
+    .course-footer {
+        padding: 15px 20px 20px 20px;
+        margin-top: auto;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+</style>
+
+<script>
+    function openTab(tabId, element) {
+        // Hide all tab contents
+        const contents = document.querySelectorAll('.tab-content');
+        contents.forEach(content => {
+            content.style.display = 'none';
+        });
+
+        // Remove active class from all buttons
+        const buttons = document.querySelectorAll('.tab-btn');
+        buttons.forEach(btn => {
+            btn.classList.remove('active');
+            btn.style.borderBottomColor = 'transparent';
+        });
+
+        // Show the selected tab and set button active
+        document.getElementById(tabId).style.display = 'block';
+        element.classList.add('active');
+        
+        // Dynamic border color based on team
+        if(tabId === 'red-team') element.style.borderBottomColor = '#E63946';
+        if(tabId === 'blue-team') element.style.borderBottomColor = '#457B9D';
+        if(tabId === 'purple-team') element.style.borderBottomColor = '#9C27B0';
+    }
+</script>
+{% endblock %}

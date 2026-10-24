@@ -1,0 +1,18 @@
+# Local runtime data
+*.db
+*.sqlite
+*.sqlite3
+static/uploads/
+
+# Python environment and cache
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.env
+.env.*
+
+# Editor settings
+.claude/
+.vscode/
+.idea/

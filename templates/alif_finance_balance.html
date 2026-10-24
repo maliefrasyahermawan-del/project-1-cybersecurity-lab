@@ -1,0 +1,55 @@
+{% extends 'bank_base.html' %}
+
+{% block page_title %}Account Statement | Alif Finance{% endblock %}
+
+{% block content %}
+<div style="max-width: 800px; margin: 0 auto;">
+    
+    <div class="bank-card">
+        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--bank-border); padding-bottom: 20px; margin-bottom: 30px;">
+            <h2 class="serif-font" style="margin: 0; color: var(--bank-dark); font-size: 2rem;">Account Statement</h2>
+            <div style="text-align: right;">
+                <span style="color: var(--bank-gray); font-size: 0.85rem; display: block; margin-bottom: 5px;">Account ID</span>
+                <span style="background: var(--bank-gold); color: var(--bank-white); padding: 5px 15px; border-radius: 4px; font-weight: bold; font-family: monospace; font-size: 1.1rem; box-shadow: 0 2px 8px rgba(212, 175, 55, 0.4);">
+                    {{ user_id }}
+                </span>
+            </div>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 20px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; padding-bottom: 15px; border-bottom: 1px dashed var(--bank-border);">
+                <span style="color: var(--bank-gray); font-weight: 500;">Account Holder</span>
+                <span style="color: var(--bank-dark); font-weight: 700; font-size: 1.1rem;">{{ account.name }}</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: center; padding-bottom: 15px; border-bottom: 1px dashed var(--bank-border);">
+                <span style="color: var(--bank-gray); font-weight: 500;">Registered Address</span>
+                <span style="color: var(--bank-dark); text-align: right; max-width: 60%;">{{ account.address }}</span>
+            </div>
+            
+            <div style="margin-top: 30px; padding: 30px; background: #fbfbfb; border: 1px solid var(--bank-border); border-radius: 8px; text-align: center; position: relative; overflow: hidden;">
+                <!-- Decorative element -->
+                <div style="position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: var(--bank-gold);"></div>
+                
+                <span style="color: var(--bank-gray); display: block; margin-bottom: 15px; font-size: 1rem; font-weight: 500; text-transform: uppercase; letter-spacing: 1px;">Available Balance</span>
+                <span class="serif-font" style="color: var(--bank-dark); font-size: 3.5rem; font-weight: 900;">{{ account.balance }}</span>
+            </div>
+        </div>
+
+        <!-- FLAG SECTION (Only shown if flag exists, i.e., user_id=1) -->
+        {% if account.flag %}
+            <div style="margin-top: 40px; padding: 25px; border: 2px solid #2e7d32; background: #e8f5e9; border-radius: 8px; box-shadow: 0 5px 15px rgba(46, 125, 50, 0.15);">
+                <h3 style="margin-top: 0; color: #2e7d32; margin-bottom: 10px; font-size: 1.5rem;">🎯 CHALLENGE SOLVED!</h3>
+                <p style="color: #1b5e20; margin-bottom: 20px; font-weight: 500;">You successfully exploited the IDOR vulnerability and accessed the Admin's highly classified bank statement.</p>
+                <div style="font-family: monospace; background: #1b5e20; color: #69f0ae; padding: 20px; border-radius: 6px; font-size: 1.5rem; text-align: center; letter-spacing: 3px; font-weight: bold; text-shadow: 0 0 5px rgba(105, 240, 174, 0.5);">
+                    {{ account.flag }}
+                </div>
+            </div>
+        {% endif %}
+
+        <div style="margin-top: 50px; text-align: center;">
+            <a href="{{ url_for('alif_finance') }}" class="bank-btn" style="background-color: transparent; border: 2px solid var(--bank-gold); color: var(--bank-gold); box-shadow: none;">&larr; Back to Dashboard</a>
+        </div>
+    </div>
+
+</div>
+{% endblock %}

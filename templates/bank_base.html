@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block page_title %}Alif Finance{% endblock %}</title>
+    <!-- Premium Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700;900&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bank-gold: #D4AF37;
+            --bank-gold-hover: #b5952f;
+            --bank-white: #FFFFFF;
+            --bank-bg: #F9F9F9;
+            --bank-dark: #1A1A1A;
+            --bank-gray: #666666;
+            --bank-border: #EAEAEA;
+            --bank-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bank-bg);
+            color: var(--bank-dark);
+            min-height: 100vh;
+        }
+
+        h1, h2, h3, h4, h5, h6, .serif-font {
+            font-family: 'Playfair Display', serif;
+        }
+
+        .bank-header {
+            background-color: var(--bank-white);
+            padding: 20px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--bank-border);
+            box-shadow: 0 2px 15px rgba(0,0,0,0.03);
+        }
+
+        .bank-logo {
+            font-size: 2rem;
+            font-weight: 900;
+            color: var(--bank-dark);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .bank-logo span {
+            color: var(--bank-gold);
+        }
+
+        .bank-nav {
+            display: flex;
+            gap: 30px;
+        }
+
+        .bank-nav a {
+            color: var(--bank-dark);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.3s;
+        }
+
+        .bank-nav a:hover {
+            color: var(--bank-gold);
+        }
+
+        .bank-container {
+            max-width: 1000px;
+            margin: 50px auto;
+            padding: 0 30px;
+        }
+
+        .bank-card {
+            background: var(--bank-white);
+            border-radius: 8px;
+            padding: 40px;
+            box-shadow: var(--bank-shadow);
+            border-top: 4px solid var(--bank-gold);
+        }
+
+        .bank-btn {
+            display: inline-block;
+            background-color: var(--bank-gold);
+            color: var(--bank-white);
+            padding: 12px 30px;
+            border: none;
+            border-radius: 4px;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+        }
+
+        .bank-btn:hover {
+            background-color: var(--bank-gold-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4);
+        }
+
+        /* Draggable Quit Button */
+        #quit-challenge-btn {
+            position: fixed;
+            bottom: 40px;
+            right: 40px;
+            width: 60px;
+            height: 60px;
+            background: var(--bank-dark);
+            color: var(--bank-gold);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            cursor: grab;
+            z-index: 9999;
+            user-select: none;
+            border: 2px solid var(--bank-gold);
+            transition: transform 0.2s;
+        }
+
+        #quit-challenge-btn:active {
+            cursor: grabbing;
+            transform: scale(0.95);
+        }
+
+        #quit-panel {
+            display: none;
+            position: fixed;
+            background: var(--bank-white);
+            border: 1px solid var(--bank-border);
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            z-index: 9998;
+            width: 250px;
+            text-align: center;
+        }
+
+        .quit-action-btn {
+            display: block;
+            width: 100%;
+            background: #E63946;
+            color: white;
+            text-decoration: none;
+            padding: 10px 0;
+            border-radius: 4px;
+            font-weight: bold;
+            margin-top: 15px;
+            transition: background 0.3s;
+        }
+
+        .quit-action-btn:hover {
+            background: #D62828;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Bank Header -->
+    <header class="bank-header">
+        <div class="bank-logo">Alif<span>Finance</span></div>
+        <nav class="bank-nav">
+            <a href="#">Personal</a>
+            <a href="#">Wealth</a>
+            <a href="#">Corporate</a>
+            <a href="#" style="color: var(--bank-gold);">Support</a>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="bank-container">
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Draggable Quit Button -->
+    <div id="quit-challenge-btn" title="Challenge Options">🚪</div>
+    
+    <div id="quit-panel">
+        <h4 style="margin-top: 0; margin-bottom: 10px; color: var(--bank-dark);">Challenge Options</h4>
+        <p style="font-size: 0.85rem; color: var(--bank-gray); margin-bottom: 0;">Are you stuck or finished with this challenge?</p>
+        <a href="{{ url_for('dashboard') }}" class="quit-action-btn">Quit Challenge</a>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const btn = document.getElementById('quit-challenge-btn');
+            const panel = document.getElementById('quit-panel');
+            
+            let isDragging = false;
+            let currentX;
+            let currentY;
+            let initialX;
+            let initialY;
+            let xOffset = 0;
+            let yOffset = 0;
+            let hasDragged = false;
+
+            btn.addEventListener('mousedown', dragStart);
+            document.addEventListener('mouseup', dragEnd);
+            document.addEventListener('mousemove', drag);
+
+            function dragStart(e) {
+                initialX = e.clientX - xOffset;
+                initialY = e.clientY - yOffset;
+                if (e.target === btn) {
+                    isDragging = true;
+                    hasDragged = false;
+                }
+            }
+
+            function dragEnd(e) {
+                initialX = currentX;
+                initialY = currentY;
+                isDragging = false;
+            }
+
+            function drag(e) {
+                if (isDragging) {
+                    e.preventDefault();
+                    hasDragged = true;
+                    currentX = e.clientX - initialX;
+                    currentY = e.clientY - initialY;
+                    xOffset = currentX;
+                    yOffset = currentY;
+                    setTranslate(currentX, currentY, btn);
+                    
+                    // Hide panel while dragging
+                    panel.style.display = 'none';
+                }
+            }
+
+            function setTranslate(xPos, yPos, el) {
+                el.style.transform = `translate3d(${xPos}px, ${yPos}px, 0)`;
+            }
+
+            // Click logic
+            btn.addEventListener('click', (e) => {
+                if (!hasDragged) {
+                    if (panel.style.display === 'block') {
+                        panel.style.display = 'none';
+                    } else {
+                        // Position panel relative to button
+                        const rect = btn.getBoundingClientRect();
+                        panel.style.display = 'block';
+                        
+                        // Keep panel on screen
+                        let panelX = rect.left - 200;
+                        let panelY = rect.top - panel.offsetHeight - 10;
+                        
+                        if(panelX < 0) panelX = rect.right + 10;
+                        if(panelY < 0) panelY = rect.bottom + 10;
+
+                        panel.style.left = panelX + 'px';
+                        panel.style.top = panelY + 'px';
+                    }
+                }
+            });
+            
+            // Close panel if clicked outside
+            document.addEventListener('click', (e) => {
+                if(e.target !== btn && !panel.contains(e.target)) {
+                    panel.style.display = 'none';
+                }
+            });
+        });
+    </script>
+</body>
+</html>

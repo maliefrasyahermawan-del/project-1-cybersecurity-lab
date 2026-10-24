@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block page_title %}Red Team Playground{% endblock %}
+
+{% block content %}
+<div style="margin-bottom: 30px;">
+    <h2 style="color: var(--text-light); margin-bottom: 10px;">Offensive Security Labs</h2>
+    <p style="color: var(--text-muted); font-size: 1.1rem;">Test and exploit vulnerabilities in controlled environments to understand attacker methodologies.</p>
+</div>
+
+<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px;">
+    
+    <div class="card" style="display: flex; flex-direction: column;">
+        <h3 class="card-title">SQL Injection Lab</h3>
+        <p style="flex: 1; color: var(--text-muted);">
+            Learn the basics of SQL Injection by attempting to bypass a login page using maliciously crafted SQL statements.
+        </p>
+        <div style="margin-top: 20px;">
+            <span style="background: rgba(230, 57, 70, 0.2); color: var(--primary-red); padding: 5px 10px; border-radius: 4px; font-size: 0.8rem; margin-right: 10px; font-weight: bold;">Difficulty: Easy</span>
+            <a href="{{ url_for('sqli_lab') }}" class="btn">Enter Lab</a>
+        </div>
+    </div>
+
+    <div class="card" style="display: flex; flex-direction: column;">
+        <h3 class="card-title">Cross-Site Scripting (XSS)</h3>
+        <p style="flex: 1; color: var(--text-muted);">
+            Inject malicious scripts into a vulnerable search feature to understand how Reflected XSS works.
+        </p>
+        <div style="margin-top: 20px;">
+            <span style="background: rgba(230, 57, 70, 0.2); color: var(--primary-red); padding: 5px 10px; border-radius: 4px; font-size: 0.8rem; margin-right: 10px; font-weight: bold;">Difficulty: Easy</span>
+            <a href="{{ url_for('xss_lab') }}" class="btn">Enter Lab</a>
+        </div>
+    </div>
+
+</div>
+{% endblock %}

@@ -1,0 +1,34 @@
+{% extends 'bank_base.html' %}
+
+{% block page_title %}Dashboard | Alif Finance{% endblock %}
+
+{% block content %}
+<div style="text-align: center; margin-bottom: 50px;">
+    <h1 style="color: var(--bank-gold); font-size: 2.5rem; margin-bottom: 15px;">Welcome to Alif Finance</h1>
+    <p style="color: var(--bank-gray); font-size: 1.1rem; max-width: 600px; margin: 0 auto;">Experience the pinnacle of secure, private, and exclusive banking services tailored for our elite clients.</p>
+</div>
+
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
+    
+    <!-- Feature: Check Balance -->
+    <div class="bank-card" style="text-align: center; display: flex; flex-direction: column; justify-content: space-between;">
+        <div>
+            <div style="font-size: 3.5rem; margin-bottom: 20px;">💰</div>
+            <h3 class="serif-font" style="font-size: 1.5rem; margin-bottom: 15px;">Account Balance</h3>
+            <p style="color: var(--bank-gray); margin-bottom: 30px;">View your real-time account balances, transaction history, and statements securely.</p>
+        </div>
+        <a href="{{ url_for('alif_finance_balance', user_id=3) }}" class="bank-btn">Access Account Portal</a>
+    </div>
+
+    <!-- Feature: Transfer Funds -->
+    <div class="bank-card" style="text-align: center; opacity: 0.7; display: flex; flex-direction: column; justify-content: space-between;">
+        <div>
+            <div style="font-size: 3.5rem; margin-bottom: 20px;">💸</div>
+            <h3 class="serif-font" style="font-size: 1.5rem; margin-bottom: 15px;">Wire Transfer</h3>
+            <p style="color: var(--bank-gray); margin-bottom: 30px;">Initiate secure domestic and international wire transfers to any registered account.</p>
+        </div>
+        <button class="bank-btn" disabled style="background-color: var(--bank-gray); cursor: not-allowed; box-shadow: none;">Service Temporarily Unavailable</button>
+    </div>
+
+</div>
+{% endblock %}

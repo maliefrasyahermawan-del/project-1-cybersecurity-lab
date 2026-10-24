@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block page_title %}Capture The Flag (CTF){% endblock %}
+
+{% block content %}
+<div style="margin-bottom: 30px;">
+    <h2 style="color: var(--text-light); margin-bottom: 10px;">Available Challenges</h2>
+    <p style="color: var(--text-muted); font-size: 1.1rem;">Test your skills in real-world scenarios to capture the flags.</p>
+</div>
+
+<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px;">
+    
+    <!-- Alif Finance IDOR Challenge -->
+    <div class="card" style="display: flex; flex-direction: column;">
+        <h3 class="card-title">Alif Finance Hack Chall</h3>
+        <p style="flex: 1; color: var(--text-muted);">
+            <strong>Category:</strong> Web Exploitation (IDOR)<br><br>
+            A brand new banking portal, "Alif Finance", claims to have the most secure balance checking system. Your mission is to find a way to access the Admin's bank details and retrieve the hidden flag.
+        </p>
+        <div style="margin-top: 20px;">
+            <span style="background: rgba(230, 57, 70, 0.2); color: var(--primary-red); padding: 5px 10px; border-radius: 4px; font-size: 0.8rem; margin-right: 10px; font-weight: bold;">Difficulty: Medium</span>
+            <a href="{{ url_for('alif_finance') }}" class="btn" style="margin-top: 15px; display: block; text-align: center;">Start Challenge</a>
+        </div>
+    </div>
+
+</div>
+{% endblock %}

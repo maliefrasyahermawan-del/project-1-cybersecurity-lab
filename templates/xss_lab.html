@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block page_title %}XSS Reflected Lab{% endblock %}
+
+{% block content %}
+<div style="display: flex; gap: 30px; align-items: flex-start; flex-wrap: wrap;">
+    
+    <!-- Left: Mission / Objective -->
+    <div class="card" style="flex: 1; min-width: 300px;">
+        <h3 class="card-title" style="display: flex; align-items: center; gap: 10px;">
+            <span style="font-size: 1.5rem;">🎯</span> Mission Objective
+        </h3>
+        <p style="color: var(--text-muted); line-height: 1.6;">
+            This page contains a simple search function. The developer forgot to sanitize the user's input before displaying it back on the page, creating a <strong>Reflected Cross-Site Scripting (XSS)</strong> vulnerability.
+        </p>
+        <p style="color: var(--text-muted); line-height: 1.6;">
+            Your task is to craft a payload that will execute a Javascript alert box when submitted.
+        </p>
+        
+        <div style="margin-top: 25px; padding: 15px; border-left: 4px solid var(--primary-red); background: rgba(230, 57, 70, 0.05); border-radius: 4px;">
+            <h4 style="margin-top: 0; color: var(--text-light); margin-bottom: 10px;">Example Payloads:</h4>
+            <code class="payload-code" style="display: block; margin-bottom: 5px;">&lt;script&gt;alert('XSS')&lt;/script&gt;</code>
+            <code class="payload-code" style="display: block;">&lt;img src="x" onerror="alert(1)"&gt;</code>
+        </div>
+    </div>
+
+    <!-- Right: Vulnerable Application Area -->
+    <div class="card" style="flex: 1.5; min-width: 400px; border: 2px solid var(--border-color-strong);">
+        <h3 style="margin-top: 0; color: var(--text-light); border-bottom: 1px solid var(--border-color); padding-bottom: 15px; margin-bottom: 25px;">
+            User Directory Search
+        </h3>
+        
+        <form method="POST" action="{{ url_for('xss_lab') }}" style="display: flex; gap: 10px; margin-bottom: 30px;">
+            <input type="text" name="query" class="form-control" placeholder="Search users by name..." required value="{{ request.form.get('query', '') }}">
+            <button type="submit" class="btn">Search</button>
+        </form>
+
+        {% if search_query %}
+            <div style="padding: 20px; background: var(--bg-main); border-radius: 8px; border: 1px solid var(--border-color);">
+                <h4 style="margin-top: 0; color: var(--text-muted);">Search Results for:</h4>
+                
+                <!-- INTENTIONAL XSS VULNERABILITY: The |safe filter prevents Jinja from escaping HTML tags -->
+                <div style="font-size: 1.2rem; color: var(--text-light); word-break: break-all; margin-top: 10px;">
+                    {{ search_query | safe }}
+                </div>
+                
+                <hr style="border: none; border-top: 1px solid var(--border-color); margin: 20px 0;">
+                <p style="color: var(--text-muted); font-size: 0.9rem;">No matching users found.</p>
+            </div>
+        {% endif %}
+    </div>
+
+</div>
+{% endblock %}
